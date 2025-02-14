@@ -1,0 +1,1665 @@
+* {
+  margin: 0;
+  line-height: 1.5em;
+  box-sizing: border-box;
+}
+
+body#messaging_body {
+  --readCol:rgb(68, 185, 231);
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+body#messaging_body ::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 1px;
+}
+body#messaging_body ::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 1px;
+}
+body#messaging_body ::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 1px;
+}
+body#messaging_body ::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+body#messaging_body * {
+  margin: 0;
+  line-height: 1.5em;
+  box-sizing: border-box;
+}
+body#messaging_body :disabled {
+  opacity: 0.3;
+  border: 1px solid black;
+}
+body#messaging_body table, body#messaging_body table th, body#messaging_body table td, body#messaging_body table tr {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+body#messaging_body h1 {
+  font-size: 200%;
+  line-height: 1.3em;
+}
+body#messaging_body h2 {
+  font-size: 150%;
+  line-height: 1.3em;
+}
+body#messaging_body h3 {
+  font-size: 130%;
+  line-height: 1.3em;
+}
+body#messaging_body h4 {
+  font-size: 100%;
+}
+body#messaging_body h5 {
+  font-size: 80%;
+}
+body#messaging_body h6 {
+  font-size: 70%;
+}
+body#messaging_body a {
+  color: black;
+}
+body#messaging_body a:hover {
+  color: blue;
+}
+body#messaging_body {
+  font-size: 14px;
+  font-family: verdana;
+  text-align: justify;
+  background-color: whitesmoke;
+}
+body#messaging_body i.my_icon {
+  --size:24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: currentColor;
+  width: var(--size);
+  height: var(--size);
+}
+body#messaging_body i.my_icon > svg {
+  fill: currentColor;
+  width: var(--size);
+  height: var(--size);
+}
+
+@keyframes inActive {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.75;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes boxes {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#mousePositionBody,
+#showProfilePicture,
+#deleteMessageOption,
+#deleteChatOption,
+#msgInfoPopUp,
+#chatMousePosBody {
+  position: absolute;
+  background-color: none;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0;
+  left: 0;
+}
+
+#mousePositionBody {
+  z-index: 2;
+}
+
+#chatMousePosBody {
+  z-index: 3;
+  width: 100vw;
+  left: 0;
+  display: none;
+}
+
+#showProfilePicture {
+  /* background-color:red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+#showProfilePicture.hide {
+  display: none;
+}
+#showProfilePicture img {
+  max-width: 90%;
+  max-height: 90%;
+}
+#showProfilePicture i.my_icon.close {
+  background-color: red;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+}
+
+#deleteMessageOption, #deleteChatOption {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  opacity: 1;
+  z-index: 6;
+  /* color:black; */
+}
+#deleteMessageOption.hide, .hide#deleteChatOption {
+  display: none;
+}
+#deleteMessageOption .hide, #deleteChatOption .hide {
+  display: none;
+}
+#deleteMessageOption > span, #deleteChatOption > span {
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
+  min-width: 25%;
+  box-shadow: 3px 3px 3px gray, -4px -4px 4px gray;
+}
+#deleteMessageOption > span > div, #deleteChatOption > span > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 10px;
+  margin: 0;
+  margin-bottom: 1px;
+}
+#deleteMessageOption > span > div span, #deleteChatOption > span > div span {
+  margin: 0;
+}
+#deleteMessageOption > span > div span.action, #deleteChatOption > span > div span.action {
+  align-self: flex-end;
+  color: green;
+  cursor: pointer;
+  text-shadow: -0.5px -0.5px green, 0.5px 0.5px green;
+}
+#deleteMessageOption > span > div span.action:hover, #deleteChatOption > span > div span.action:hover {
+  background-color: rgba(60, 175, 60, 0.4);
+}
+
+#msgInfoPopUp {
+  background: rgb(243, 233, 233);
+  opacity: 1;
+}
+#msgInfoPopUp .head {
+  display: flex;
+  margin: 0;
+  padding: 1% 1%;
+  height: 40px;
+  align-items: center;
+  background: whitesmoke;
+}
+#msgInfoPopUp .head.bodyScrl {
+  background: rgb(219, 216, 216);
+}
+#msgInfoPopUp .head i.my_icon.back {
+  display: inline;
+  margin: 0;
+  cursor: pointer;
+  margin-right: 1%;
+}
+#msgInfoPopUp .head .title {
+  margin: 0;
+}
+#msgInfoPopUp .body {
+  height: calc(100vh - 90px);
+  overflow: auto;
+}
+#msgInfoPopUp .body hr {
+  border-color: rgb(161, 153, 153);
+}
+#msgInfoPopUp .body .MIPMsg {
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+}
+#msgInfoPopUp .body .MIPSta {
+  background: rgb(146, 142, 142);
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin-top: 1.7%;
+  border-radius: 5px;
+  padding: 1.5%;
+}
+#msgInfoPopUp .body .MIPSta * {
+  margin: 0;
+}
+#msgInfoPopUp .body .MIPSta .MIPRead,
+#msgInfoPopUp .body .MIPSta .MIPDeliver {
+  display: flex;
+  flex-direction: column;
+}
+#msgInfoPopUp .body .MIPSta .MIPRead .title i.my_icon.read,
+#msgInfoPopUp .body .MIPSta .MIPDeliver .title i.my_icon.read {
+  --size:14px;
+  display: inline;
+  font-size: 100%;
+  color: gray;
+}
+#msgInfoPopUp .body .MIPSta .MIPRead .title i.my_icon.read {
+  color: #44b9e7;
+}
+
+.loaderBackground,
+.contentLoader {
+  position: absolute;
+  background-color: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0;
+  left: 0;
+}
+
+.loaderBackground {
+  background-color: gray;
+  opacity: 0.8;
+}
+
+.contentLoader {
+  opacity: 1;
+}
+.contentLoader * {
+  margin: 0;
+}
+.contentLoader div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: 1%;
+  background: #0b3c5c;
+}
+.contentLoader div .text {
+  color: #3498db;
+  padding-right: 3%;
+  font-size: 20px;
+  font-weight: 600;
+}
+.contentLoader div .spiner {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  animation: spin 2s linear infinite;
+}
+.contentLoader div .boxes {
+  display: flex;
+  animation: boxes 2s linear infinite;
+}
+.contentLoader div .boxes * {
+  margin: 1%;
+  background: #3498db;
+  width: 10px;
+  height: 10px;
+}
+
+#chat {
+  /* align-self:flex-start; */
+  position: relative;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+  border-right: 1px solid #E5DDD5;
+}
+
+#chat #chatHead {
+  background-color: #EDEDED;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+#chat #chatHead #chatHeadNormal {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* display:none; */
+}
+#chat #chatHead #chatHeadNormal #chatChatMinimize {
+  margin: 0 0.4%;
+  height: 40px;
+  width: 40px;
+  margin-left: 0;
+  cursor: pointer;
+}
+#chat #chatHead #chatHeadNormal #chatHeadPix, #chat #chatHead #chatHeadNormal #chatHeadPix img {
+  margin: 0 0.4%;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain {
+  margin: 0 0.4%;
+  width: 40px;
+  height: 40px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain > i.my_icon {
+  margin: 0 2%;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain #chatHeadChat, #chat #chatHead #chatHeadNormal #chatSubContain #chatHeadSearchChat {
+  /* margin-right:0; */
+  cursor: pointer;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain #chatHeadChat.hide, #chat #chatHead #chatHeadNormal #chatSubContain #chatHeadSearchChat.hide {
+  display: none;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain #chatHeadOthers {
+  margin-right: 0;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain .chatHeadOthersOptions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px gray, -5px -5px 5px gray;
+  background-color: #FFFFFF;
+  min-width: 40%;
+  top: 95%;
+  right: 0;
+  z-index: 3;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain .chatHeadOthersOptions > p {
+  padding: 3% 10%;
+  width: 100%;
+  cursor: pointer;
+  display: block;
+}
+#chat #chatHead #chatHeadNormal #chatSubContain .chatHeadOthersOptions > p:hover {
+  background-color: #F5F5F5;
+}
+
+#chat #chatHead #chatHeadSelected {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  display: none;
+  padding: 0 10px;
+}
+
+#chat #chatHead #chatHeadSelected > * {
+  cursor: pointer;
+}
+
+#chat #chatHead #chatHeadSelected > i.my_icon {
+  --size:20px;
+}
+
+#chat #chatSearch {
+  position: relative;
+  background-color: rgb(214, 212, 212);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 4% 0;
+  width: 100%;
+  border: 1px solid #EDEDED;
+}
+#chat #chatSearch .hide {
+  display: none;
+}
+#chat #chatSearch.typingFocus {
+  background-color: #FFFFFF;
+}
+#chat #chatSearch > div {
+  position: relative;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  padding: 0 10px;
+  border-radius: 30px;
+}
+#chat #chatSearch i.my_icon#chatSearchBack, #chat #chatSearch i.my_icon#chatSearchClear {
+  --size:21px;
+  cursor: pointer;
+  color: gray;
+  margin: 0;
+}
+#chat #chatSearch i.my_icon#chatSearchBack {
+  font-size: 150%;
+}
+#chat #chatSearch i.my_icon#chatSearchBack.arrow_back {
+  color: rgb(5, 195, 253);
+}
+#chat #chatSearch > div > div {
+  /* background-color:rgb(150, 23, 23); */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 40px);
+  margin: 0;
+  flex: 1;
+}
+#chat #chatSearch > div > div .chatSearchInput {
+  /* background-color:rgb(185, 102, 102); */
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  padding: 4px;
+  margin: 0;
+  /* border:1px solid black; */
+  max-height: 10vh;
+  white-space: nowrap;
+  overflow: hidden;
+  outline: none;
+  cursor: text;
+}
+#chat #chatSearch > div > div .chatSearchInput.placeholder {
+  position: absolute;
+  color: gray;
+}
+#chat #chatSearch > div > div .chatSearchInput.hide {
+  display: none;
+}
+#chat #chatSearch > i.my_icon.chatSearchClose {
+  --size:14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: rgb(83, 82, 82);
+}
+#chat #chatSearch > i.my_icon.chatSearchClose:hover {
+  background: red;
+}
+
+#chat #chatBody {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+}
+
+body#messaging_body .chat .chatBody .chatContain.hover:hover {
+  background-color: #F5F5F5;
+}
+body#messaging_body .chat .chatBody .chatContain.hover:hover .chatSubContain .lMegContain .lMegContain2 i.my_icon.chatExpandMore {
+  display: flex;
+  cursor: pointer;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSelected {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  left: 0;
+}
+body#messaging_body .chat .chatBody .chatContain .chatPix i.my_icon.chatSelect {
+  height: 16px;
+  width: 16px;
+  --size:12px;
+  position: absolute;
+  background-color: #06D755;
+  color: white;
+  border-radius: 50%;
+  border: 1px solid white;
+  left: 0;
+  top: 0;
+  display: none;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatMoreOptions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px gray, -5px -5px 5px gray;
+  background-color: #FFFFFF;
+  min-width: 40%;
+  top: 0;
+  right: 3%;
+  z-index: 3;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatMoreOptions > p {
+  margin: 0;
+  padding: 3% 10%;
+  width: 100%;
+  cursor: pointer;
+  display: block;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatMoreOptions > p.processing {
+  opacity: 0.75;
+  animation: inActive 1s linear infinite;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatMoreOptions > p:hover {
+  background-color: #F5F5F5;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatMoreOptions > p.processing:hover {
+  background-color: none;
+}
+body#messaging_body .chat .chatBody .chatContainNotActive {
+  opacity: 0.75;
+  animation: inActive 1s linear infinite;
+}
+body#messaging_body .chat .chatBody .chatContain, body#messaging_body .chat .chatBody .chatContainNotActive {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 0 3%;
+}
+body#messaging_body .chat .chatBody .chatContain .chatPix, body#messaging_body .chat .chatBody .chatContain img, body#messaging_body .chat .chatBody .chatContainNotActive .chatPix, body#messaging_body .chat .chatBody .chatContainNotActive img {
+  position: relative;
+  margin: 0 1%;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+body#messaging_body .chat .chatBody .chatContain .chatPix .online, body#messaging_body .chat .chatBody .chatContainNotActive .chatPix .online {
+  position: absolute;
+  background-color: #06D755;
+  color: white;
+  padding: 12%;
+  border-radius: 50%;
+  border: 1px solid white;
+  right: 0;
+  bottom: 0;
+  display: none;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  margin: 0 1%;
+  flex: 1;
+  margin-right: 0;
+  padding: 4% 0;
+  border-bottom: 1px solid #EDEDED;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .nameContain, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .nameContain {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 20px;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .nameContain .nameSubContain, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .nameContain .nameSubContain {
+  height: 20px;
+  flex: 1;
+  width: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .nameContain .chatTimeContain, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .nameContain .chatTimeContain {
+  display: flex;
+  height: 20px;
+  min-width: 10px;
+  font-size: 65%;
+  color: gray;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain {
+  display: flex;
+  width: 100%;
+  height: 20px;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain1, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain1 {
+  display: flex;
+  flex: 1;
+  height: 20px;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain1 i.my_icon.lMegRead, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain1 i.my_icon.lMegRead {
+  color: gray;
+  height: 20px;
+  --size:13px;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain1 i.my_icon.lMegRead.read, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain1 i.my_icon.lMegRead.read {
+  color: var(--readCol);
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain1 .lMeg, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain1 .lMeg {
+  flex: 1;
+  width: 50px;
+  font-size: 80%;
+  height: 20px;
+  color: gray;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain2 {
+  display: flex;
+  min-width: 20px;
+  height: 20px;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain div.lMegContain > div.lMegContain2 > i.my_icon, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain div.lMegContain > div.lMegContain2 > i.my_icon {
+  --size:20px;
+  margin: 0 5%;
+  color: gray;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 i.my_icon.chatExpandMore, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain2 i.my_icon.chatExpandMore {
+  --size:15px;
+  display: none;
+}
+body#messaging_body .chat .chatBody .chatContain .chatSubContain .lMegContain .lMegContain2 .chatCount, body#messaging_body .chat .chatBody .chatContainNotActive .chatSubContain .lMegContain .lMegContain2 .chatCount {
+  min-width: 20px;
+  height: 20px;
+  color: white;
+  font-size: 70%;
+  border-radius: 50%;
+  background-color: #06D755;
+}
+
+#chat #chatBody #getOlderChat {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  color: gray;
+  border: 1px solid gray;
+  font-size: 120%;
+  padding: 3% 0;
+}
+
+#chat #chatBody .noChatFound {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  color: gray;
+}
+
+#message {
+  background-color: #FFFFFF;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 65%;
+}
+
+#message #msgDate {
+  display: none;
+  background-color: gray;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 64px;
+  z-index: 2;
+  border-radius: 2px;
+}
+
+#message #msgDate.add {
+  display: inline;
+}
+
+#message i#showChatBox.my_icon {
+  --size:19px;
+  position: absolute;
+  border-radius: 50%;
+  font-size: 180%;
+  background-color: blue;
+  width: 40px;
+  height: 40px;
+  z-index: 3;
+  right: 20px;
+  margin: 0;
+  /* top:45px; */
+  bottom: 5px;
+  cursor: pointer;
+}
+
+#message #messageHead {
+  display: flex;
+  align-items: center;
+  background-color: #EDEDED;
+  width: 100%;
+  height: 60px;
+  padding-left: 2%;
+}
+
+#message #messageHead #messageHeadNormal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* display:none; */
+}
+#message #messageHead #messageHeadNormal > div {
+  margin: 0 0.4%;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+#message #messageHead #messageHeadNormal #messageChatMaximize {
+  height: 40px;
+  width: 40px;
+  margin-left: 0;
+  cursor: pointer;
+  display: none;
+}
+#message #messageHead #messageHeadNormal #messageHeadPix, #message #messageHead #messageHeadNormal #messageHeadPix img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
+#message #messageHead #messageHeadNormal #messageHeadNameContain {
+  position: relative;
+  width: calc(100% - 90px);
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 1%;
+}
+#message #messageHead #messageHeadNormal #messageHeadNameContain > div {
+  /* flex:1; */
+  width: 100%;
+}
+#message #messageHead #messageHeadNormal #messageHeadNameContain #messageHeadName {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  width: 90%;
+}
+#message #messageHead #messageHeadNormal #messageHeadNameContain #messageHeadNameTime {
+  font-size: 65%;
+}
+#message #messageHead #messageHeadNormal #messageHeadOthers {
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#message #messageHead #messageHeadNormal .messageHeadOthersOptions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px gray, -5px -5px 5px gray;
+  background-color: #FFFFFF;
+  min-width: 40%;
+  top: 9%;
+  right: 0;
+  z-index: 3;
+}
+#message #messageHead #messageHeadNormal .messageHeadOthersOptions > p {
+  padding: 3% 10%;
+  width: 100%;
+  cursor: pointer;
+  display: block;
+}
+#message #messageHead #messageHeadNormal .messageHeadOthersOptions > p:hover {
+  background-color: #F5F5F5;
+}
+
+#message #messageHead #messageHeadSelected {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  display: none;
+  align-items: center;
+}
+#message #messageHead #messageHeadSelected > i.my_icon, #message #messageHead #messageHeadSelected > div {
+  --size:18px;
+  height: 40px;
+  width: 22px;
+  margin: 0 1.5%;
+  cursor: pointer;
+}
+#message #messageHead #messageHeadSelected > .hide {
+  display: none;
+}
+#message #messageHead #messageHeadSelected i.my_icon#messageHeadOthersS {
+  --size:24px;
+  width: 40px;
+  position: absolute;
+  right: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+#message #messageHead #messageHeadSelected i.my_icon#messageHeadBack {
+  --size:24px;
+}
+#message #messageHead #messageHeadSelected i.my_icon#messageHeadCount {
+  margin-right: 8%;
+  cursor: default;
+}
+#message #messageHead #messageHeadSelected i.my_icon#messageHeadFoward {
+  transform: rotateY(180deg);
+}
+
+#message .selectAChatW {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  color: gray;
+}
+
+#message .selectAChatBtn {
+  display: none;
+  border: 1px solid grey;
+  padding: 2%;
+  cursor: pointer;
+  border-radius: 50%;
+  border-top-left-radius: 0;
+  transition: all ease 0.5s;
+}
+#message .selectAChatBtn:hover {
+  background: rgb(107, 106, 106);
+  color: white;
+  border-radius: 50%;
+  border-bottom-left-radius: 0;
+}
+
+#message #messageBody {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  background-color: #E5DDD5;
+}
+
+#message #messageBody .msgDate {
+  background-color: gray;
+  display: inline;
+  position: relative;
+  left: 47%;
+  margin: 5% 0 10% 0;
+  transform: translate(-50%, 0);
+  border-radius: 2px;
+}
+
+#message #chatBox {
+  background-color: #F0F0F0;
+  position: relative;
+  width: 100%;
+  /* max-height:20vh; */
+  max-height: 30vh;
+  align-items: center;
+  justify-content: flex-end;
+  display: none;
+  /* display:flex; */
+}
+#message #chatBox i.my_icon.send {
+  height: 40px;
+  width: 40px;
+  margin: 0;
+  display: inline-flex;
+  background-color: green;
+  cursor: pointer;
+}
+#message #chatBox i.my_icon.send {
+  border-radius: 50%;
+}
+#message #chatBox i.my_icon#closeChatBox {
+  --size:14px;
+  position: absolute;
+  font-size: 100%;
+  border-bottom-right-radius: 50%;
+  background-color: red;
+  cursor: pointer;
+  margin: 0;
+  align-self: flex-start;
+  top: 0;
+  left: 0;
+}
+#message #chatBox .cchatBox {
+  position: relative;
+  display: flex;
+  flex: 1;
+  max-width: calc(100% - 50px);
+  flex-wrap: wrap;
+  /* background: #06D755; */
+  margin: 0;
+  border-radius: 30px;
+}
+#message #chatBox .textMegContain {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 5px 5px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 2px #ccc;
+  /* background: red; */
+}
+#message #chatBox .textMegContain.replying {
+  border-radius: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+#message #chatBox .textMegContain .replyedMeg {
+  width: 100%;
+  position: relative;
+  /* background: rgb(97, 62, 62); */
+  margin: 0;
+}
+#message #chatBox .textMegContain .replyedMeg.hide {
+  display: none;
+}
+#message #chatBox .textMegContain .replyedMeg i.my_icon.close {
+  --size:14px;
+  /* background:red; */
+  position: absolute;
+  cursor: pointer;
+  font-size: 100%;
+  z-index: 1;
+  top: 0;
+  right: 0;
+}
+#message #chatBox .textMegContain .replyedMeg i.my_icon.close:hover {
+  background: red;
+}
+#message #chatBox .textMegContain .textContain {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  flex: 1;
+}
+#message #chatBox .textMegContain .text {
+  position: relative;
+  display: inline-block;
+  max-height: calc(18vh - 10px);
+  width: 90%;
+  flex: 1;
+  margin: 0;
+  /* border-radius:30px; */
+  outline: none;
+  cursor: text;
+  overflow: auto;
+  padding: 0 4px;
+  /* background:blue; */
+}
+#message #chatBox .textMegContain .text.placeholder {
+  position: absolute;
+  color: gray;
+  /* height:100%; */
+  /* background: yellow; */
+}
+#message #chatBox .textMegContain .text.hide {
+  display: none;
+}
+
+#message #messageBody #loadOlderMsgsBtn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5vh;
+  border: 1px solid gray;
+  color: gray;
+  cursor: pointer;
+}
+
+body#messaging_body .msgWrapper,
+body#messaging_body .msgSendingWrapper,
+body#messaging_body .msgWrapperNotActive {
+  display: flex;
+  position: relative;
+  background-color: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body#messaging_body .msgWrapperNotActive {
+  opacity: 0.75;
+  animation: inActive 1s linear infinite;
+}
+body#messaging_body .msgWrapper.first,
+body#messaging_body .msgWrapperNotActive.first {
+  margin-top: 0.4%;
+}
+body#messaging_body .msgWrapper.sent,
+body#messaging_body .msgSendingWrapper.sent,
+body#messaging_body .msgWrapperNotActive.sent {
+  justify-content: flex-end;
+}
+body#messaging_body .msgWrapper.recieved,
+body#messaging_body .msgSendingWrapper.recieved {
+  justify-content: flex-start;
+}
+body#messaging_body .selected {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  z-index: 2;
+}
+body#messaging_body .selected.hover:hover {
+  background-color: gray;
+}
+body#messaging_body .selected.s {
+  background-color: gray;
+}
+body#messaging_body .Megchecked {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+body#messaging_body .sent .Megchecked {
+  justify-content: flex-start;
+}
+body#messaging_body .recieved .Megchecked {
+  justify-content: flex-end;
+}
+body#messaging_body .Megchecked input {
+  margin: 0;
+}
+body#messaging_body .megMore {
+  /* background-color:rgba(128, 128, 128, 0.829); */
+  background-image: linear-gradient(to top right, rgba(255, 255, 255, 0.795), rgba(128, 128, 128, 0.808));
+  border-bottom-left-radius: 50%;
+  padding-left: 5px;
+  position: absolute;
+  right: 0;
+  margin-right: 0.8%;
+  z-index: 2;
+  cursor: pointer;
+  display: none;
+}
+body#messaging_body .megMore i.my_icon.subMsgMore {
+  --size:15px;
+  position: relative;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  transition: all 0.5s;
+}
+body#messaging_body .megMore i.my_icon.subMsgMore.optionUp {
+  transform: rotateX(180deg);
+}
+body#messaging_body .megMoreOptionsBackground {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 5px 5px 5px gray, -5px -5px 5px gray;
+  background-color: rgb(255, 255, 255);
+  min-width: 62px;
+  padding: 0 3% 0 0;
+  top: 0;
+  right: 0;
+  z-index: 3;
+}
+body#messaging_body .megMoreOptions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+body#messaging_body .megMoreOptions > p {
+  display: flex;
+  position: relative;
+  margin: 0;
+  padding: 3% 10%;
+  box-sizing: content-box;
+  width: 100%;
+  cursor: pointer;
+}
+body#messaging_body .megMoreOptions > p.processing {
+  opacity: 0.75;
+  animation: inActive 1s linear infinite;
+}
+body#messaging_body .megMoreOptions > p:hover {
+  background-color: #F5F5F5;
+  background-color: blue;
+}
+body#messaging_body .replyedMeg {
+  position: relative;
+  display: flex;
+  border-radius: 5px;
+  max-height: 10vh;
+  /* background-color:gray; */
+  margin-bottom: 2%;
+}
+body#messaging_body .replyedMeg > div {
+  background-color: black;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  opacity: 0.2;
+}
+body#messaging_body .replyedMeg a {
+  position: relative;
+  cursor: pointer;
+  color: rgb(29, 28, 28);
+  flex: 1;
+  font-size: 80%;
+  max-height: 10vh;
+  padding: 2%;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+body#messaging_body .replyedMeg a:hover {
+  color: #859677;
+}
+body#messaging_body .replyedMeg > .you {
+  background-color: green;
+  max-height: 10vh;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 2%;
+}
+body#messaging_body .replyedMeg a span.you {
+  color: green;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+body#messaging_body .replyedMeg > .notYou {
+  background-color: purple;
+  max-height: 10vh;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 2%;
+}
+body#messaging_body .replyedMeg a span.notYou {
+  color: purple;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+body#messaging_body .replyedMeg a span {
+  display: block;
+}
+body#messaging_body .messageContainer,
+body#messaging_body .delMsgContainer,
+body#messaging_body .msgSendingContainer {
+  position: relative;
+  border-radius: 5px;
+  padding: 1%;
+  margin: 0.4% 0;
+  max-width: 90%;
+}
+body#messaging_body .messageContainer:hover .megMore,
+body#messaging_body .delMsgContainer:hover .megMore {
+  display: flex;
+}
+body#messaging_body .msgWrapperNotActive:hover .megMore {
+  display: none;
+}
+body#messaging_body .messageContainer.sent.first::after,
+body#messaging_body .delMsgContainer.sent.first::after {
+  position: absolute;
+  content: "";
+  height: 0;
+  width: 0;
+  border-top: 10px solid rgb(221, 221, 221);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  right: -10px;
+  top: 0;
+}
+body#messaging_body .messageContainer.recieved.first::before,
+body#messaging_body .delMsgContainer.recieved.first::before {
+  position: absolute;
+  content: "";
+  height: 0;
+  width: 0;
+  border-top: 10px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  left: -10px;
+  top: 0;
+}
+body#messaging_body .messageContainer.sent,
+body#messaging_body .delMsgContainer.sent,
+body#messaging_body .msgSendingContainer.sent {
+  background-color: rgb(221, 221, 221);
+  margin-right: 10px;
+  box-shadow: 2px 2px 1px rgb(192, 188, 188), -2px -1px 1px rgb(192, 188, 188);
+}
+body#messaging_body .messageContainer.recieved,
+body#messaging_body .delMsgContainer.recieved,
+body#messaging_body .msgSendingContainer.recieved {
+  background-color: white;
+  margin-left: 10px;
+  box-shadow: 3px 2px 1px rgb(192, 188, 188), -2px -1px 1px rgb(192, 188, 188);
+}
+body#messaging_body .delMsgContainer {
+  display: inline-flex;
+}
+body#messaging_body .messageContainer .timeContain,
+body#messaging_body .msgSendingContainer .timeContain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #aaa;
+  font-size: 70%;
+  margin-bottom: 1%;
+  margin-right: 1%;
+  bottom: 0;
+}
+body#messaging_body .messageContainer .timeContain i.my_icon,
+body#messaging_body .msgSendingContainer .timeContain i.my_icon {
+  --size:7px;
+}
+body#messaging_body .messageContainer .timeContain i.my_icon.seen,
+body#messaging_body .msgSendingContainer .timeContain i.my_icon.seen {
+  --size:12px;
+}
+body#messaging_body .messageContainer .timeContain i.my_icon.seen.read,
+body#messaging_body .msgSendingContainer .timeContain i.my_icon.seen.read {
+  color: var(--readCol);
+}
+body#messaging_body .messageContainer .timeContainPlaceholder,
+body#messaging_body .msgSendingContainer .timeContainPlaceholder {
+  position: relative;
+  opacity: 0;
+  float: right;
+  transform: translate(0, 30%);
+}
+body#messaging_body .timeContainPlaceholder::after {
+  content: "";
+  clear: right;
+  display: none;
+}
+body#messaging_body .messageContainer .stared {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3%;
+  font-size: 100%;
+  position: relative;
+}
+body#messaging_body .messageContainer .stared.hide {
+  display: none;
+}
+body#messaging_body .msgSendingContainer .msgSending {
+  font-size: 120%;
+}
+body#messaging_body .messageContainer .seen {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3%;
+  font-size: 100%;
+  position: relative;
+}
+body#messaging_body .messageContainer .message,
+body#messaging_body .msgSendingContainer .message {
+  display: inline;
+}
+
+.forwardBackground {
+  background-color: rgba(255, 255, 255, 0.534);
+  background-color: rgba(27, 26, 26, 0.534);
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.forwardBackground .container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 75%;
+  width: 25%;
+}
+.forwardBackground .container .head {
+  background: rgb(38, 0, 255);
+  position: relative;
+  display: flex;
+  margin: 0;
+  height: 35px;
+}
+.forwardBackground .container .head span {
+  cursor: pointer;
+}
+.forwardBackground .container .head span.text {
+  cursor: default;
+}
+.forwardBackground .container .head .search {
+  position: relative;
+  background-color: rgb(214, 212, 212);
+  display: flex;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  border: 1px solid #EDEDED;
+}
+.forwardBackground .container .head .search .hide {
+  display: none;
+}
+.forwardBackground .container .head .search.typingFocus {
+  background-color: #FFFFFF;
+}
+.forwardBackground .container .head .search > div {
+  position: relative;
+  background-color: #FFFFFF;
+  display: flex;
+  width: 90%;
+  padding: 0 1%;
+}
+.forwardBackground .container .head .search .searchClear {
+  font-size: 120%;
+  cursor: pointer;
+  color: black;
+  margin: 0;
+}
+.forwardBackground .container .head .search > .searchInput {
+  background: none;
+  position: relative;
+  display: inline-block;
+  max-width: 90%;
+  padding: 4px;
+  margin: 0;
+  font-size: 100%;
+  height: 100%;
+  white-space: nowrap;
+  /* border:1px solid black; */
+  overflow: hidden;
+  outline: none;
+  cursor: text;
+}
+.forwardBackground .container .head .search > .searchInput.placeholder {
+  position: absolute;
+  color: gray;
+}
+.forwardBackground .container .head .search > .searchInput.hide {
+  display: none;
+}
+.forwardBackground .container .body {
+  background-color: #FFFFFF;
+  position: relative;
+  height: 100%;
+  flex: 1;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+}
+.forwardBackground .container .body .profileContain {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 0 3%;
+}
+.forwardBackground .container .body .profileContain.hover:hover {
+  background-color: #F5F5F5;
+}
+.forwardBackground .container .body .profileContain .profileSelected {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  left: 0;
+}
+.forwardBackground .container .body .profileContain .p_pix, .forwardBackground .container .body .profileContain img {
+  position: relative;
+  margin: 0 1%;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.forwardBackground .container .body .profileContain .p_pix .profileSelect {
+  position: absolute;
+  background-color: #06D755;
+  color: white;
+  font-size: 70%;
+  padding: 5%;
+  border-radius: 50%;
+  border: 1px solid white;
+  left: 0;
+  top: 0;
+  display: none;
+}
+.forwardBackground .container .body .profileContain .p_pix .online {
+  position: absolute;
+  background-color: #06D755;
+  color: white;
+  padding: 12%;
+  border-radius: 50%;
+  border: 1px solid white;
+  right: 0;
+  bottom: 0;
+  display: none;
+}
+.forwardBackground .container .body .profileContain .nameContain {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+  padding: 4% 0;
+  margin: 0 1%;
+  border-bottom: 1px solid #EDEDED;
+}
+.forwardBackground .container .body .profileContain .nameContain .name, .forwardBackground .container .body .profileContain .nameContain .details {
+  height: 20px;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 0.5%;
+}
+.forwardBackground .container .body .profileContain .nameContain .details {
+  font-size: 75%;
+  font-style: italic;
+  color: gray;
+}
+.forwardBackground .container .foot {
+  background: rgb(38, 0, 255);
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 0;
+  height: 30px;
+}
+.forwardBackground .container .foot .names {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0 0 0 2%;
+  flex: 1.2;
+  margin: 0;
+}
+.forwardBackground .container .foot .namesOverlay {
+  position: absolute;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.forwardBackground .container .foot .sendCotain {
+  display: flex;
+  position: absolute;
+  right: 0;
+  border-radius: 50%;
+}
+.forwardBackground .container .foot .sendCotain .send {
+  background: rgb(130, 153, 38);
+  position: relative;
+  font-size: 180%;
+  left: 23px;
+  bottom: 15px;
+  padding: 9px;
+  cursor: pointer;
+  box-shadow: -5px 5px 5px rgba(128, 128, 128, 0.801);
+  border-radius: 50%;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------------------------------------*/
+/* for screen more narror than screen of 500px */
+@media only screen and (max-width: 500px) {
+  #chatMousePosBody {
+    display: block;
+  }
+  #chat {
+    position: absolute;
+    width: 70%;
+    z-index: 5;
+    height: calc(100vh - 50px);
+    display: none;
+  }
+  #chat:after {
+    content: "";
+    background-color: rgba(255, 255, 255, 0.466);
+    position: absolute;
+    width: 30vw;
+    height: calc(100vh - 50px);
+    z-index: 2;
+    left: 100%;
+  }
+  #message {
+    width: 100%;
+  }
+  #message #messageHead #messageHeadNormal #messageChatMaximize {
+    display: flex;
+  }
+  #message .selectAChatBtn {
+    display: flex;
+  }
+} /* for screen more narror than screen of 500px */
+/* navigation bar */
+nav.head_nav {
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+nav.head_nav ul {
+  display: inline-flex;
+  align-items: center;
+  height: 80%;
+  width: 95%;
+  padding: 0;
+}
+nav.head_nav a, nav.head_nav .notActiveBt {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  margin: 0 2.5px;
+  padding: 0 2%;
+  font-size: 110%;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+  transition: background 1s, color 0.5s, border-radius 1s;
+}
+nav.head_nav a:hover {
+  color: blue;
+  background-color: white;
+  border-radius: 12px;
+}
+nav.head_nav .activeBt {
+  color: blue;
+  background-color: white;
+  opacity: 0.85;
+}
+
+/* bodycontent */
+section#pageSection {
+  display: flex;
+  width: 100%;
+  min-height: 500px; /*for safari*/
+  min-height: calc(100vh - 170px);
+  padding: 0;
+  background-color: whitesmoke;
+  position: relative;
+  margin-bottom: 0;
+  height: calc(100vh - 50px);
+}
+
+.hide {
+  display: none;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*  the default website ends here     */ /*---------------------------------------------------------------------------------------------------------------------------*/
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL19yYXdfZmlsZXMvc2Nzcy9jb2RlL21vZHVsZXMvX3N0eWxlLnNjc3MiLCIuLi8uLi8uLi8uLi9fcmF3X2ZpbGVzL3Njc3Mvb3V0cHV0L21lc3NhZ2VzLmNzcyIsIi4uLy4uLy4uLy4uL19yYXdfZmlsZXMvc2Nzcy9jb2RlL21vZHVsZXMvc3ViX21vZHVsZXMvX2tleWZyYW1lcy5zY3NzIiwiLi4vLi4vLi4vLi4vX3Jhd19maWxlcy9zY3NzL2NvZGUvbW9kdWxlcy9zdWJfbW9kdWxlcy9fcG9wdXBzLnNjc3MiLCIuLi8uLi8uLi8uLi9fcmF3X2ZpbGVzL3Njc3MvY29kZS9tb2R1bGVzL3N1Yl9tb2R1bGVzL19sb2FkZXJzLnNjc3MiLCIuLi8uLi8uLi8uLi9fcmF3X2ZpbGVzL3Njc3MvY29kZS9tb2R1bGVzL19tc2dDaGF0LnNjc3MiLCIuLi8uLi8uLi8uLi9fcmF3X2ZpbGVzL3Njc3MvY29kZS9tb2R1bGVzL19tc2dNc2cuc2NzcyIsIi4uLy4uLy4uLy4uL19yYXdfZmlsZXMvc2Nzcy9jb2RlL21vZHVsZXMvc3ViX21vZHVsZXMvX21lZGlhUXVlcmllcy5zY3NzIiwiLi4vLi4vLi4vLi4vX3Jhd19maWxlcy9zY3NzL2NvZGUvbWVzc2FnZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFNBQUE7RUFDQSxrQkFBQTtFQUNBLHNCQUFBO0FDQ0o7O0FESUE7RUFFSSwyQkFBQTtFQUVBLFVBQUE7RUFNQSxVQUFBO0VBTUEsV0FBQTtFQU1BLG9CQUFBO0FDbEJKO0FEQ0k7RUFDSSxVQUFBO0VBQ0Esa0JBQUE7QUNDUjtBREdJO0VBQ0kseUJBQUE7RUFDQSxrQkFBQTtBQ0RSO0FES0k7RUFDSSxzQkFBQTtFQUNBLGtCQUFBO0FDSFI7QURPSTtFQUNJLHNCQUFBO0FDTFI7QURRSTtFQUNJLFNBQUE7RUFDQSxrQkFBQTtFQUNBLHNCQUFBO0FDTlI7QURXSTtFQUNJLFlBQUE7RUFDQSx1QkFBQTtBQ1RSO0FEZUk7RUFD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 */

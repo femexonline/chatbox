@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #messages { border: 1px solid #ddd; padding: 10px; max-height: 200px; overflow-y: auto; }
+    #messageInput { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>WebSocket Client</h1>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Type a message..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const messagesDiv = document.getElementById("messages");
+    const messageInput = document.getElementById("messageInput");
+
+    // Connect to the WebSocket server
+    const socket = new WebSocket("ws://localhost:8080/test");
+
+    // Display messages from the server
+    socket.onmessage = function(event) {
+      const message = document.createElement("div");
+      message.textContent = "Server: " + event.data;
+      messagesDiv.appendChild(message);
+    };
+
+    // Display a message when the connection is opened
+    socket.onopen = function() {
+      const message = document.createElement("div");
+      message.textContent = "Connected to the server";
+      messagesDiv.appendChild(message);
+    };
+
+    // Display a message when the connection is closed
+    socket.onclose = function() {
+      const message = document.createElement("div");
+      message.textContent = "Disconnected from the server";
+      messagesDiv.appendChild(message);
+    };
+
+    // Send a message to the server
+    function sendMessage() {
+      const message = messageInput.value;
+      if (message) {
+        socket.send(message);
+        const userMessage = document.createElement("div");
+        userMessage.textContent = "You: " + message;
+        messagesDiv.appendChild(userMessage);
+        messageInput.value = ""; // Clear the input
+      }
+    }
+  </script>
+</body>
+</html>
