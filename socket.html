@@ -22,9 +22,11 @@ const messageInput = document.getElementById("messageInput");
 
     class Socket{
         ping_interval=null;
+        socketId=""
         
-        constructor(userId){
-            this.socket=new WebSocket(`ws://localhost:8080/${userId}`);
+        constructor(userId, isAdmin){
+            this.socketId=`${userId}_${new Date().getTime()}_${randomNumbers()}`
+            this.socket=new WebSocket(`ws://localhost:8080/${userId}/${isAdmin}/${this.socketId}`);
 
             this.socket.onmessage = function(event) {
                 const message = document.createElement("div");
@@ -70,18 +72,30 @@ const messageInput = document.getElementById("messageInput");
         }
     }
 
-// Connect to the WebSocket server
-const socket = new Socket(33);
+    const randomNumbers=(length=3)=>{
+        let res=""
+        let index=0;
+        while(index < length){
+            res+=Math.floor(Math.random() * 9) + 0;
+            index++;
+        }
+
+        return res;
+    };
+
+    // Connect to the WebSocket server
+    const socket = new Socket(33, 1);
 
 
 
-// Display messages from the server
-// Send a message to the server
-function sendMessage() {
-    const message = messageInput.value;
+    // Display messages from the server
+    // Send a message to the server
+    function sendMessage() {
+        const message = messageInput.value;
 
-    socket.sendMessage(message)
-}
+        socket.sendMessage(message)
+    }
+    
 </script>
 </body>
 </html>
