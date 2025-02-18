@@ -185,6 +185,23 @@
             
         }
 
+        static function getAllAdmins(){
+            global $conn;
+
+            $type="admin";
+
+            $review="SELECT id, f_name, l_name, type, identifier, p_pix FROM users WHERE type=:type";
+
+            $review=$conn->prepare($review);
+            $review->bindParam(":type", $type);
+
+            if(!$review->execute()){
+                return  null;
+            }
+
+            return $review->fetchAll(PDO::FETCH_ASSOC);
+        }
+
     }
 
 
