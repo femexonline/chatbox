@@ -11,6 +11,7 @@
         ];
 
         $id=$_POST["id"];
+        $type=$_POST["type"];
 
         if(!$id){
             $res["isErr"]=true;
@@ -18,7 +19,11 @@
         }
 
         if(!$res["isErr"]){
-            $user=UserController::getBasicProfileById($id);
+            if($type=="admin"){
+                $user=UserController::getBasicProfileById($id);
+            }else{
+                $user=UserController::getByIdentifier($id);
+            }
             
             if(!$user){
                 $res["isErr"]=true;
