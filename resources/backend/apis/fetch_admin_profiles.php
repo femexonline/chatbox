@@ -4,6 +4,12 @@
     require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
 
 
-    $user=UserController::getAllAdmins();
+    $admins=UserController::getAdminsMax2();
+    $adminsCount=UserController::getAdminsCount();
 
-    echo json_encode($user);
+    $res=[
+        "admins"=>$admins,
+        "count"=>$adminsCount[0]["count"]
+    ];
+
+    echo json_encode($res);

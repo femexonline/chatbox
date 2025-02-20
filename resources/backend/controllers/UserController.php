@@ -63,7 +63,6 @@
             global $conn;
 
             $user_id=UserController::_addUser();
-            $user_id=2;
 
             if(!$user_id){
                 return null;
@@ -185,12 +184,14 @@
             
         }
 
-        static function getAllAdmins(){
+        static function getAdminsMax2(){
             global $conn;
 
             $type="admin";
 
-            $review="SELECT id, f_name, l_name, type, identifier, p_pix FROM users WHERE type=:type";
+            $review="SELECT id, f_name, l_name, type, identifier, p_pix 
+                FROM users WHERE type=:type LIMIT 3
+            ";
 
             $review=$conn->prepare($review);
             $review->bindParam(":type", $type);
@@ -201,6 +202,24 @@
 
             return $review->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        static function getAdminsCount(){
+            global $conn;
+
+            $type="admin";
+
+            $review="SELECT COUNT(id) AS count FROM users WHERE type=:type";
+
+            $review=$conn->prepare($review);
+            $review->bindParam(":type", $type);
+
+            if(!$review->execute()){
+                return  null;
+            }
+
+            return $review->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
 
     }
 
