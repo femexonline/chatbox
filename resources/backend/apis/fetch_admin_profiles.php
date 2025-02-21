@@ -9,7 +9,7 @@
 
     $res=[
         "admins"=>$admins,
-        "count"=>$adminsCount[0]["count"]
+        "count"=>$adminsCount
     ];
 
     echo json_encode($res);

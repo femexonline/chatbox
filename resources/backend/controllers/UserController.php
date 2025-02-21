@@ -217,7 +217,7 @@
                 return  null;
             }
 
-            return $review->fetchAll(PDO::FETCH_ASSOC);
+            return $review->fetchAll(PDO::FETCH_ASSOC)[0]["count"];
         }
         
 

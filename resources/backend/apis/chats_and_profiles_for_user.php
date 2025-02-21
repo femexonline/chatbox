@@ -47,8 +47,8 @@
                     $chats[$index]["messages"]=MessageController::fetchMessagesFromChatId($chat["id"], $user_id, $messagesPerLoad);
                 }
     
-                $newProfId=$chat["user_id"];
-                if(!in_array($newProfId, $profilesIds)){
+                $newProfId=$chat["admin_id"];
+                if(!in_array($newProfId, $profilesIds) && $newProfId){
                     array_push($profilesIds, $newProfId);
                 }
     
