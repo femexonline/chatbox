@@ -211,6 +211,24 @@
             return $res;
         }
 
+        static function getById($id){
+            global $conn;
+
+            $sql="SELECT * FROM messages WHERE id=:id";
+
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":id", $id);
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+
+            $data=$sql->fetch(PDO::FETCH_ASSOC);
+
+            return $data;
+        }
+
 
     }
 

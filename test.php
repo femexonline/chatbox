@@ -54,5 +54,7 @@
     //     echo($chat["time_sent"]);
     // }
 
-   var_dump(MessageController::UserHasUnreadMsgInChat(1, 5));
+//    var_dump(MessageController::UserHasUnreadMsgInChat(1, 5));
+
+    print(time());
 
