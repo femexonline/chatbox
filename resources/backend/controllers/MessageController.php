@@ -113,7 +113,6 @@
 
 
             if($cont > $messagesPerLoad && $do_skip){
-                print("DDDDDDDD");
                 $data[$cont-1]["skip"]=true;
             }
 
