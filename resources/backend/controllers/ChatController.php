@@ -307,6 +307,26 @@
 
         }
 
+        static function getById($id){
+            global $conn;
+
+
+            $where="c.id=:id";
+
+            $chat=ChatController::__getChatsSQL(1, $where);
+            $chat=$conn->prepare($chat);
+            $chat->bindParam(":id", $id);
+
+            if(!$chat->execute()){
+                return  null;
+            }
+
+            $chat=$chat->fetch(PDO::FETCH_ASSOC);
+
+            
+            return $chat;
+        }
+
 
     }
 

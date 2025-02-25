@@ -10,7 +10,6 @@
 
         $res=[
             "isErr"=>false,
-            "msg"=>"",
             "chat"=>null,
             "profile"=>null
         ];
@@ -18,45 +17,37 @@
         $messagesPerLoad=$_POST["messagesPerLoad"];
         $chatPerLoad=$_POST["chatPerLoad"];
         $chat_id=$_POST["chat_id"];
+        $user_id=intval($_POST["user_id"]);
 
 
-        if(!$chat_id || !$chatPerLoad || !$messagesPerLoad){
+        if(!$chat_id || !$user_id || !$chatPerLoad || !$messagesPerLoad){
             $res["isErr"]=true;
             $res["msg"]="Some error occured";
         }
 
-        // #################################333
         if(!$res["isErr"]){
-            $chat=ChatController::getUserChats($user_id, $chatPerLoad, $skip_chat_ids);
+            $chat=ChatController::getById($chat_id);
         }    
 
-        $profilesIds=[];
+        $profilesId=null;
         if(!$res["isErr"]){
-    
-            $last=null;
-            $index=0;
-            foreach($chats as $chat){
-                if(!isset($chat["skip"])){
-                    $chats[$index]["messages"]=MessageController::fetchMessagesFromChatId($chat["id"], $user_id, $messagesPerLoad);
+            if($chat){
+                $profilesId=$chat["user_id"];
+                if($profilesId==$user_id){
+                    $profilesId=$chat["admin_id"];
                 }
-    
-                $newProfId=$chat["admin_id"];
-                if(!in_array($newProfId, $profilesIds) && $newProfId){
-                    array_push($profilesIds, $newProfId);
+
+
+                if($profilesId){
+                    $res["profile"]=UserController::getBasicProfileById($profilesId);
                 }
-    
-                $index++;
             }
-    
-            if(count($profilesIds)){
-                $res["profile"]=UserController::getUsersFromListOfIds($profilesIds);
-            }
+
         }
     
         if(!$res["isErr"]){
-            $res["chat"]=$chats;
-            $res["admin_count"]=UserController::getAdminsCount();
-            $res["admins"]=UserController::getAdminsMax2();
+            $res["chat"]=$chat;
+            $res["chat"]["messages"]=MessageController::fetchMessagesFromChatId($chat["id"], $user_id, $messagesPerLoad);
         }
     
         echo json_encode($res);
