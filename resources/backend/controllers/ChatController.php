@@ -71,9 +71,13 @@
                     $where
                 ORDER BY 
                     rm.time_sent DESC
-                LIMIT $limitToUse;
-
             ";
+
+            if($limitToUse){
+                $chats.="LIMIT $limitToUse";
+            }
+
+            $chats.=";";
 
             return $chats;
         }
@@ -197,6 +201,24 @@
             if(count($unread)){
                 $chats=array_merge($chats, $unread);
             }
+
+            return $chats;
+        }
+
+        static function getAdminChatsAfterTime($adminisId, $time){
+            global $conn;
+
+
+            $chats=ChatController::__getChatsSQL(0, "(c.admin_id = :id OR c.admin_id IS NULL) AND m.time_sent >= :time_start");
+            $chats=$conn->prepare($chats);
+            $chats->bindParam(":id", $adminisId);
+            $chats->bindParam(":time_start", $time);
+
+            if(!$chats->execute()){
+                return  null;
+            }
+
+            $chats=$chats->fetchAll(PDO::FETCH_ASSOC);
 
             return $chats;
         }
