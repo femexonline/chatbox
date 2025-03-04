@@ -120,6 +120,26 @@
 
         }
 
+        static function fetchMessagesFromChatIdAfterTime($chat_id, $userId, $time_start){
+            global $conn;
+
+            $sql="SELECT * FROM messages WHERE chat_id=:chat_id AND time_sent >= :time_start ORDER BY id DESC";
+
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":chat_id", $chat_id);
+            $sql->bindParam(":time_start", $time_start);
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+
+            $data=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+            return $data;
+
+        }
+
         static function _fetchMsgFromChatIdByMsgIdRange($chat_id, $frm, $to){
             global $conn;
 

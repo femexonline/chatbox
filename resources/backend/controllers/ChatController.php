@@ -209,7 +209,7 @@
             global $conn;
 
 
-            $chats=ChatController::__getChatsSQL(0, "(c.admin_id = :id OR c.admin_id IS NULL) AND m.time_sent >= :time_start");
+            $chats=ChatController::__getChatsSQL(0, "(c.admin_id = :id OR c.admin_id IS NULL) AND rm.time_sent >= :time_start");
             $chats=$conn->prepare($chats);
             $chats->bindParam(":id", $adminisId);
             $chats->bindParam(":time_start", $time);
