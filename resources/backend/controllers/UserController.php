@@ -134,6 +134,23 @@
             return $review->fetch(PDO::FETCH_ASSOC);
 
         }
+
+        static function getProfLastseenFromList($list){
+            global $conn;
+
+            $list=UserController::_convertListToSqlList($list);
+
+            $review="SELECT id, last_seen FROM users WHERE id IN $list";
+
+            $review=$conn->prepare($review);
+
+            if(!$review->execute()){
+                return  null;
+            }
+
+            return $review->fetchAll(PDO::FETCH_ASSOC);
+
+        }
         
         static function getById($id){
             global $conn;

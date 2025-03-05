@@ -35,7 +35,6 @@
             $last=null;
             $index=0;
             foreach($chats as $chat){
-                // get all messages after time
                 $chats[$index]["messages"]=MessageController::fetchMessagesFromChatIdAfterTime($chat["id"], $user_id, $after);
     
                 $newProfId=$chat["user_id"];
