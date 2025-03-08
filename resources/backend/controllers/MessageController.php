@@ -4,6 +4,10 @@
 
 
     class MessageController{
+        static function _convertListToSqlList($list) {
+            // Join the array elements with commas
+            return "(" . implode(", ", $list) . ")";
+        }
         
         static function addMessage($chat_id, $sender_id, $msg){
             global $conn;
@@ -120,7 +124,7 @@
 
         }
 
-        static function fetchMessagesFromChatIdAfterTime($chat_id, $userId, $time_start){
+        static function fetchMessagesFromChatIdAfterTime($chat_id, $time_start){
             global $conn;
 
             $sql="SELECT * FROM messages WHERE chat_id=:chat_id AND time_sent >= :time_start ORDER BY id DESC";
@@ -138,6 +142,24 @@
 
             return $data;
 
+        }
+
+        static function getReadStatOfMsgFromList($list){
+            global $conn;
+
+            $read_status="sent";
+            $list=MessageController::_convertListToSqlList($list);
+
+            $review="SELECT id, chat_id, read_status, deliver_time, read_time FROM messages WHERE id IN $list AND read_status !=:read_status";
+
+            $review=$conn->prepare($review);
+            $review->bindParam(":read_status", $read_status);
+
+            if(!$review->execute()){
+                return  null;
+            }
+
+            return $review->fetchAll(PDO::FETCH_ASSOC);
         }
 
         static function _fetchMsgFromChatIdByMsgIdRange($chat_id, $frm, $to){

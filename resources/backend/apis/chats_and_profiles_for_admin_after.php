@@ -35,7 +35,7 @@
             $last=null;
             $index=0;
             foreach($chats as $chat){
-                $chats[$index]["messages"]=MessageController::fetchMessagesFromChatIdAfterTime($chat["id"], $user_id, $after);
+                $chats[$index]["messages"]=MessageController::fetchMessagesFromChatIdAfterTime($chat["id"], $after);
     
                 $newProfId=$chat["user_id"];
                 if(!in_array($newProfId, $profilesIds)){
