@@ -3,8 +3,6 @@
 
     require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
 
-    // just busy
-
     $admins=UserController::getAdminsMax2();
     $adminsCount=UserController::getAdminsCount();
 
