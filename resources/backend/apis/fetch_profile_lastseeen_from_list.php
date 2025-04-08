@@ -3,7 +3,6 @@
 
     // to fetch kast seen
     // to fetch kast seen
-    // to fetch kast seen
 
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
