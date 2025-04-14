@@ -18,6 +18,10 @@ body#messaging_body {
 
 section#pageSection {
   --readCol:rgb(68, 185, 231);
+  /* width */
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
 }
 section#pageSection ::-webkit-scrollbar {
   width: 7px;
@@ -57,7 +61,6 @@ section#pageSection i.my_icon > svg {
   fill: currentColor;
   width: var(--size);
   height: var(--size);
-  /* dd */
 }
 
 @keyframes inActive {

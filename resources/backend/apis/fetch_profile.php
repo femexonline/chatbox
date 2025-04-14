@@ -1,12 +1,6 @@
 <?php
     require_once '../root_path.php';
 
-    // just busy
-    // just busy
-    // just busy
-    // just busy
-    // just busy
-
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
 

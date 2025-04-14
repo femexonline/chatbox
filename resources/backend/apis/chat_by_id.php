@@ -6,6 +6,8 @@
         require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
         require_once $ROOT_DIR.'/resources/backend/controllers/MessageController.php';
 
+
+
         $res=[
             "isErr"=>false,
             "chat"=>null,

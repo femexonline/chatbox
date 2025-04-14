@@ -6,9 +6,7 @@
         require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
         require_once $ROOT_DIR.'/resources/backend/controllers/MessageController.php';
 
-        // still workinh
-        // still workinh
-        // still workinh
+
 
         $res=[
             "isErr"=>false,
