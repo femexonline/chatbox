@@ -1,11 +1,6 @@
 <?php
 
     //defining variables for connection
-    //defining variables for connection
-    //defining variables for connection
-    //defining variables for connection
-    //defining variables for connection
-    //defining variables for connection
     $host="localhost";
     $dbname="chat_box";
     $dbuname= "admin";
