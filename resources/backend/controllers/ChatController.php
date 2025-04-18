@@ -308,6 +308,24 @@
             return $chats;
         }
 
+        static function getUserChatsAfterTime($userId, $time){
+            global $conn;
+
+
+            $chats=ChatController::__getChatsSQL(0, "c.user_id = :id AND rm.time_sent >= :time_start");
+            $chats=$conn->prepare($chats);
+            $chats->bindParam(":id", $userId);
+            $chats->bindParam(":time_start", $time);
+
+            if(!$chats->execute()){
+                return  null;
+            }
+
+            $chats=$chats->fetchAll(PDO::FETCH_ASSOC);
+
+            return $chats;
+        }
+
         
         static function addChat($user_id, $user_identifier){
             global $conn;

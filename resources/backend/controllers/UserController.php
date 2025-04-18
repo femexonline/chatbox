@@ -168,10 +168,14 @@
 
         }
 
-        static function getByIdentifier($identifier){
+        static function getByIdentifier($identifier, $forId=false){
             global $conn;
 
             $review="SELECT id, f_name, l_name, type, identifier, p_pix, last_seen FROM users WHERE identifier=:identifier";
+
+            if($forId){
+                $review="SELECT id FROM users WHERE identifier=:identifier";
+            }
 
             $review=$conn->prepare($review);
             $review->bindParam(":identifier", $identifier);

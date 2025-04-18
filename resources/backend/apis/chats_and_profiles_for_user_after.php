@@ -17,18 +17,27 @@
             "profiles"=>[]
         ];
 
-        $user_id=$_POST["user_id"];
+        $user_identifier=$_POST["user_id"];
         $after=intval($_POST["after"]);
 
 
-        if(!$user_id || !$after){
+        if(!$user_identifier || !$after){
             $res["isErr"]=true;
             $res["msg"]="Some error occured";
         }
 
+        if(!$res["isErr"]){
+            $user=UserController::getByIdentifier($user_identifier, true);
+            if(!$user){
+                $res["isErr"]=true;
+                $res["msg"]="Some error occured";
+            }
+        }
+
+
 
         if(!$res["isErr"]){
-            $chats=ChatController::getAdminChatsAfterTime($user_id, $after);
+            $chats=ChatController::getUserChatsAfterTime($user["id"], $after);
         }    
 
         $profilesIds=[];
