@@ -5,6 +5,8 @@
 
     $BAIT="/chat_box/chat_box";
     // $BAIT="";
+    // $BAIT="";
+    // $BAIT="";
 
     $ROOT_DIR=$_SERVER["DOCUMENT_ROOT"].$BAIT;
     $ROOT_ADDR=$BAIT;
