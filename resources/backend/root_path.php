@@ -7,6 +7,8 @@
     // $BAIT="";
     // $BAIT="";
     // $BAIT="";
+    // $BAIT="";
+    // $BAIT="";
 
     $ROOT_DIR=$_SERVER["DOCUMENT_ROOT"].$BAIT;
     $ROOT_ADDR=$BAIT;
