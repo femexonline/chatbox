@@ -6,10 +6,8 @@
 
     
     if($_SERVER["REQUEST_METHOD"]=="POST"){
-        require_once $ROOT_DIR.'/resources/backend/controllers/ChatController.php';
-        require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
-        require_once $ROOT_DIR.'/resources/backend/controllers/MessageController.php';
 
+        
 
 
         $res=[
