@@ -5,6 +5,10 @@
     class UserController{
 
         static function _convertListToSqlList($list) {
+            if(!count($list)){
+                return null;
+            }
+            
             // Join the array elements with commas
             return "(" . implode(", ", $list) . ")";
         }

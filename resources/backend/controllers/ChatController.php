@@ -7,6 +7,9 @@
         
         static function _convertListToSqlList($list) {
             // Join the array elements with commas
+            if(!count($list)){
+                return null;
+            }
             return "(" . implode(", ", $list) . ")";
         }
         
