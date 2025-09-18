@@ -8,7 +8,8 @@
         $res=[
             "isErr"=>false,
             "msg"=>"",
-            "identifier"=>null
+            "identifier"=>null,
+            "msg_id"=>null
         ];
 
         $msg=$_POST["msg"];
@@ -42,9 +43,10 @@
             if(!$sent){
                 $res["isErr"]=true;
                 $res["msg"]="Some error occured";
-
-            }                    
-
+            }else{
+                $res["msg_id"]=$sent;
+            } 
+            
         }
 
         
