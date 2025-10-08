@@ -67,7 +67,7 @@
             return $data;
         }
 
-        static function addFirstChatMessage($user_identifier, $sender_id, $msg){
+        static function addFirstChatMessage($user_identifier, $sender_id, $msg, $resChatId=false){
 
             $chat_id=ChatController::addChat($sender_id, $user_identifier);
 
@@ -75,7 +75,13 @@
                 return null;
             }
 
-            return MessageController::addMessage($chat_id, $sender_id, $msg);
+            $msg_id=MessageController::addMessage($chat_id, $sender_id, $msg);
+
+            if($resChatId){
+                return $chat_id;
+            }
+
+            return $msg_id;
         }
 
         static function fetchMessagesFromChatId($chat_id, $userId, $messagesPerLoad){
