@@ -5,6 +5,10 @@
     $dbname="chat_box";
     $dbuname= "admin";
     $dbpass="Adminadmin9";
+    // $host="localhost";
+    // $dbname="femikewz_chat_box";
+    // $dbuname= "femikewz_chat_box";
+    // $dbpass="4DKuXQ(Va}Ip";
 
     //trying connection in a try... catch block
     try {

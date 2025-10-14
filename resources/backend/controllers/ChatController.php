@@ -370,6 +370,42 @@
             return $chat;
         }
 
+        //for socket2 api
+        static function getBasicDataById($id){
+            global $conn;
+
+
+            $chat="SELECT * FROM chats WHERE id=:id";
+            $chat=$conn->prepare($chat);
+            $chat->bindParam(":id", $id);
+
+            if(!$chat->execute()){
+                return  null;
+            }
+
+            $chat=$chat->fetch(PDO::FETCH_ASSOC);
+
+            
+            return $chat;
+        }
+
+                //for socket2 api
+        static function setChatAdminId($id, $admin_id){
+            global $conn;
+
+
+            $chat="UPDATE chats SET admin_id=:admin_id WHERE id=:id";
+            $chat=$conn->prepare($chat);
+            $chat->bindParam(":id", $id);
+            $chat->bindParam(":admin_id", $admin_id);
+
+            if(!$chat->execute()){
+                return  null;
+            }
+            
+            return true;
+        }
+
 
     }
 
