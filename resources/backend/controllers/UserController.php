@@ -245,6 +245,36 @@
             return $review->fetchAll(PDO::FETCH_ASSOC)[0]["count"];
         }
         
+        //for socket2 api
+        static function markUserAsOnline($id){
+            global $conn;
+
+            $sql = "UPDATE users SET last_seen = 'online' WHERE id =:id";
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":id", $id);
+            
+            if($sql->execute()){
+                return "online";
+            }
+
+            return false;
+        }
+
+        //for socket2 api
+        static function markUserAsOffline($id, $time){
+            global $conn;
+
+            $sql = "UPDATE users SET last_seen =:timee WHERE id =:id";
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":id", $id);
+            $sql->bindParam(":timee", $time);
+            
+            if($sql->execute()){
+                return $time;
+            }
+
+            return false;
+        }
 
     }
 

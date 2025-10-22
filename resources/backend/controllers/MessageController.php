@@ -278,6 +278,84 @@
 
             return $data;
         }
+
+        //for socket2 api
+        static function markMessagesFromChatAsDeliveredFromIdStr($chatID, $msgIds_str, $userID, $time_del){
+            global $conn;
+
+            if(strlen($msgIds_str) < 2){return;}
+            
+            $msgIds_str=explode("_", $msgIds_str);
+            $lastId=$msgIds_str[0];
+            $firstId=$msgIds_str[1];
+
+
+            $sql = "UPDATE messages SET read_status = 'delivered', deliver_time =:time_del ";
+            
+            if($firstId){
+                $sql.="WHERE id >=:firstId AND id <=:lastId ";
+            }else{
+                $sql.="WHERE id =:lastId ";
+            }
+
+            $sql.="AND sender_id !=:userID AND read_status='sent'";
+            $sql.="AND chat_id =:chatID";
+            
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":time_del", $time_del);
+            $sql->bindParam(":lastId", $lastId);
+            $sql->bindParam(":userID", $userID);
+            $sql->bindParam(":chatID", $chatID);
+            if($firstId){
+                $sql->bindParam(":firstId", $firstId);
+            }
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+            return true;
+        }
+
+        //for socket2 api
+        static function markMessagesFromChatAsSeenFromIdStr($chatID, $msgIds_str, $userID, $time_del){
+            global $conn;
+
+            if(strlen($msgIds_str) < 2){return;}
+            
+            $msgIds_str=explode("_", $msgIds_str);
+            $lastId=$msgIds_str[0];
+            $firstId=$msgIds_str[1];
+
+
+            $sql = "UPDATE messages SET read_status = 'read', read_time =:time_del ";
+            
+            if($firstId){
+                $sql.="WHERE id >=:firstId AND id <=:lastId ";
+            }else{
+                $sql.="WHERE id =:lastId ";
+            }
+
+            $sql.="AND sender_id !=:userID AND read_status='delivered'";
+            $sql.="AND chat_id =:chatID";
+            
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":time_del", $time_del);
+            $sql->bindParam(":lastId", $lastId);
+            $sql->bindParam(":userID", $userID);
+            $sql->bindParam(":chatID", $chatID);
+            if($firstId){
+                $sql->bindParam(":firstId", $firstId);
+            }
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+            return true;
+        }
+
+
     }
 
 

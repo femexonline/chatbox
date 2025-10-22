@@ -389,7 +389,7 @@
             return $chat;
         }
 
-                //for socket2 api
+        //for socket2 api
         static function setChatAdminId($id, $admin_id){
             global $conn;
 
@@ -406,6 +406,74 @@
             return true;
         }
 
+        //for socket2 api
+        static function getBasicDataByIdList($id_list, $idAdKey=false){
+            global $conn;
+
+            $id_list=ChatController::_convertListToSqlList($id_list);
+
+            $chat="SELECT * FROM chats WHERE id IN $id_list";
+            $chat=$conn->prepare($chat);
+
+            if(!$chat->execute()){
+                return  null;
+            }
+
+            $chat=$chat->fetchAll(PDO::FETCH_ASSOC);
+
+            if($idAdKey){
+                $old=$chat;
+                $chat=[];
+
+                foreach($old as $c){
+                    $chat[$c["id"]]=$c;
+                }
+            }
+            
+            return $chat;
+        }
+
+        //for socket2 api
+        static function getAdminIdsConnectedUserAndOnline($userId){
+            global $conn;
+
+            $sql="SELECT DISTINCT(c.admin_id) FROM chats AS c ";
+            $sql.="LEFT JOIN users AS u ON c.admin_id=u.id ";
+            $sql.="WHERE u.last_seen='online' AND c.user_id=:userId";
+
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":userId", $userId);
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+            $sql=$sql->fetchAll(PDO::FETCH_COLUMN);
+
+            return $sql;
+            
+        }
+
+        //for socket2 api
+        static function getUserIdsConnectedAdminAndOnline($userId){
+            global $conn;
+
+            $sql="SELECT c.user_id FROM chats AS c ";
+            $sql.="LEFT JOIN users AS u ON c.user_id=u.id ";
+            $sql.="WHERE u.last_seen='online' AND c.admin_id=:userId";
+
+            $sql=$conn->prepare($sql);
+            $sql->bindParam(":userId", $userId);
+
+            if(!$sql->execute()){
+                return  null;
+            }
+
+            $sql=$sql->fetchAll(PDO::FETCH_COLUMN);
+
+            return $sql;
+            
+        }
 
     }
 

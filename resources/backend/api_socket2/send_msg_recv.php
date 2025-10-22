@@ -4,16 +4,15 @@
 
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         require_once $ROOT_DIR.'/resources/backend/controllers/ChatController.php';
-        require_once $ROOT_DIR.'/resources/backend/controllers/UserController.php';
         require_once $ROOT_DIR.'/resources/backend/controllers/MessageController.php';
 
         $res=[
-            "msg"=>null,
+            "err"=>"",
             "isErr"=>false,
             "adminFirstRes"=>false,
             "pingNotTheAdmin"=>false,
             "chatData"=>null,
-            "err"=>"",
+            "msg"=>null,
         ];
 
         #chatID, senderId, msg, resId
@@ -34,26 +33,26 @@
 
         if(!$chatID || !$senderId || !$msg){
             $res["isErr"]=true;
-            $res["msg"]="Some error occured";
+            $res["err"]="Some error occured";
         }
         
 
         if(!$res["isErr"]){
-            $res["chatData"]=ChatController::getBasicDataById($chat_id);
+            $res["chatData"]=ChatController::getBasicDataById($chatID);
 
             if(!$res["chatData"]){
                 $res["isErr"]=true;
-                $res["msg"]="Some error occured";
+                $res["err"]="Some error occured";
             }
         }   
         
         if(!$res["isErr"] && $isAdmin){
             if(!$res["chatData"]["admin_id"]){
-                if(ChatController::setChatAdminId($chat_id, $senderId)){
+                if(ChatController::setChatAdminId($chatID, $senderId)){
                     $res["adminFirstRes"]=true;
                 }else{
                     $res["isErr"]=true;
-                    $res["msg"]="Some error occured";
+                    $res["err"]="Some error occured";
                 }
             }else{
                 if(intval($res["chatData"]["admin_id"])!=intval($senderId)){
@@ -65,9 +64,12 @@
         }
 
         if(!$res["isErr"] && $sendMsg){
-            if(!MessageController::addMessage($chat_id, $senderId, $msg)){
+            $newMsgId=MessageController::addMessage($chatID, $senderId, $msg);
+            if(!$newMsgId){
                 $res["isErr"]=true;
-                $res["msg"]="Some error occured";
+                $res["err"]="Some error occured";
+            }else{
+                $res["msg"]=MessageController::getById($newMsgId);
             }
         }
     
